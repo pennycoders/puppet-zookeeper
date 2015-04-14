@@ -1,0 +1,26 @@
+[Unit]
+Description=Apache ZooKeeper <%= @id %>
+After=network.target
+ConditionDirectoryNotEmpty=<%= @configDir %>
+ConditionDirectoryNotEmpty=<%= @dataDir %>
+ConditionPathIsDirectory=<%= @dataLogDir %>
+ConditionPathExists=<%= @configDir %>/zoo.cfg
+ConditionPathExists=<%= @configDir %>/log4j.properties
+
+
+[Service]
+Environment="JVMFLAGS=<%= @jvmFlags %>"
+Environment="ZOOCFGDIR=<%= @configDir %>"
+User=<%= @user %>
+SyslogIdentifier=<%= @service_name %>
+WorkingDirectory=<%= @installDir %>/zookeeper
+ExecStart=<%= @installDir %>/zookeeper/bin/zkServer.sh start-foreground
+UMask=0027
+LimitNOFILE=16384
+CPUAccounting=true
+MemoryAccounting=true
+Restart=always
+RestartSec=20
+
+[Install]
+WantedBy=multi-user.target

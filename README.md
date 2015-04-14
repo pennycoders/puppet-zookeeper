@@ -13,6 +13,7 @@
        on a given machine.
        
 ## Usage guide:
+In order to be able to use  this module, you first need to add it to your dependencies list.
 ### Usage example:
 #### Simple usage:
 ##### The zookeeper class:

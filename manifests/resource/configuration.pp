@@ -1,3 +1,8 @@
+# zookeeper configuration resource
+# configures an instance of zookeeper,
+# opens up firewall ports (if chosen so),
+# and also installs the service
+# (ONLY if the user chooses so).
 define zookeeper::resource::configuration (
   $ensure                 = 'present',
   $user                   = $::zookeeper::user,

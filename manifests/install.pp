@@ -1,7 +1,6 @@
-/**
-  zookeeper::install class
-  Installs zookeeper, inherits parameters from the main class
-*/
+#  zookeeper::install class
+#  Installs zookeeper, inherits parameters from the main class
+
 class zookeeper::install (
   $url                = $zookeeper::url,
   $localName          = $zookeeper::localName,
@@ -16,15 +15,14 @@ class zookeeper::install (
   $installDir         = $zookeeper::installDir
 ) inherits zookeeper {
 
-/*
-Check if $manage_user is a valid boolean value
-*/
+
+# Check if $manage_user is a valid boolean value
+
   validate_bool($manage_user, $checksum, $follow_redirects)
 
-/*
-Check if all the string parameters are
-actually strings, halt if any of them is not.
-*/
+
+# Check if all the string parameters are
+# actually strings, halt if any of them is not.
   validate_string(
     $url,
     $localName,
@@ -36,10 +34,8 @@ actually strings, halt if any of them is not.
     $tmpDir
   )
 
-/*
-Check if all the parameters supposed to be absolute paths are,
-fail if any of them is not.
-*/
+# Check if all the parameters supposed to be absolute paths are,
+# fail if any of them is not.
   validate_absolute_path(
     [
       $installDir,

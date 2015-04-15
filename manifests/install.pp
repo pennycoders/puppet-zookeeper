@@ -66,7 +66,7 @@ fail if any of them is not.
     ensure           => present,
     url              => $url,
     src_target       => $tmpDir,
-    target           => "${tmpDir}",
+    target           => $tmpDir,
     follow_redirects => $follow_redirects,
     extension        => $extension,
     checksum         => $checksum,

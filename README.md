@@ -25,6 +25,18 @@ or
     class {'zookeeper': }
 ```
 ##### The configuration resource:
+  Please note that the servers parameter should look like below:
+```puppet
+  ...
+    servers => {
+      1 =>{
+          ip => '127.0.0.1',
+          leaderPort => 2888,
+          electionPort => 3888
+        }
+      }
+  ...
+```
 ```puppet
     zookeeper::resource::configuration{'localhost':}
 ```

@@ -1,3 +1,8 @@
+/**
+  zookeeper::install class
+  Installs java, inherits parameters from the main class
+*/
+
 class zookeeper::java (
   $install        = $zookeeper::install_java,
   $package_name   = $zookeeper::java_package

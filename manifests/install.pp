@@ -1,3 +1,7 @@
+/**
+  zookeeper::install class
+  Installs zookeeper, inherits parameters from the main class
+*/
 class zookeeper::install (
   $url                = $zookeeper::url,
   $localName          = $zookeeper::localName,

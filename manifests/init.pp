@@ -105,7 +105,7 @@ class zookeeper (
   $pidDir                 = '/var/run/zookeeper',
   $dataDir                = '/var/lib/zookeeper',
   $configDir              = '/etc/zookeeper',
-  $clientPortAddress      = "127.0.0.1",
+  $clientPortAddress      = '127.0.0.1',
   $globalOutstandingLimit = 1000,
   $maxClientCnxns         = 2000,
   $snapCount              = 100000,
@@ -224,7 +224,7 @@ Check if the passed ip address
 actually exists on the host,
 fail if it does not.
 */
-  if has_interface_with("ipaddress", $clientPortAddress) == false {
+  if has_interface_with('ipaddress', $clientPortAddress) == false {
     fail("The speciffied address (${clientPortAddress}) is not associated with ${::hostname}.")
   }
 

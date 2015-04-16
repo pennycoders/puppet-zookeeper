@@ -10,7 +10,6 @@ define zookeeper::resource::configuration (
   $jvmFlags               = $::zookeeper::jvmFlags,
   $purgeInterval          = $::zookeeper::purgeInterval,
   $dataLogDir             = $::zookeeper::dataLogDir,
-  $pidDir                 = $::zookeeper::pidDir,
   $dataDir                = $::zookeeper::dataDir,
   $configDir              = $::zookeeper::configDir,
   $clientPortAddress      = $::zookeeper::clientPortAddress,
@@ -27,7 +26,6 @@ define zookeeper::resource::configuration (
   $cnxTimeout             = $::zookeeper::cnxTimeout,
   $standaloneEnabled      = $::zookeeper::standaloneEnabled,
   $syncLimit              = $::zookeeper::syncLimit,
-  $pid_file               = $::zookeeper::pid_file,
   $clientPort             = $::zookeeper::clientPort,
   $leaderPort             = $::zookeeper::leaderPort,
   $leaderElectionPort     = $::zookeeper::leaderElectionPort,
@@ -66,7 +64,7 @@ define zookeeper::resource::configuration (
     }
   }
 
-  file{ [$dataDir,$pidDir]:
+  file{ [$dataDir]:
     ensure  => directory,
     owner   => $user,
     purge   => false,
@@ -95,7 +93,7 @@ define zookeeper::resource::configuration (
     purge     => true,
     force     => true,
     recurse   => true,
-    require   => [File[$dataLogDir],File[$configDir],File[$dataDir,$pidDir]],
+    require   => [File[$dataLogDir],File[$configDir],File[$dataDir]],
     content   => template('zookeeper/data/myid.erb')
   }
 
@@ -149,7 +147,7 @@ define zookeeper::resource::configuration (
       require => [
         File[$configDir],
         File[$dataLogDir],
-        File[$dataDir,$pidDir],
+        File[$dataDir],
         File["${configDir}/zoo.cfg"],
         File["${dataDir}/myid"]
       ],

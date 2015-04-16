@@ -55,11 +55,8 @@
 #   The data log directory - see http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_configuration
 #   $dataLogDir
 #
-#   The directory where you want the process id to be stored (Will be created if it does not exist)
-#   $pidDir
 #
-#   The desired name of the proceess id file
-#   $pid_file
+#
 #
 #   The directory where zooKeeper will be downloaded
 #   $tmpDir
@@ -102,7 +99,6 @@ class zookeeper (
   $jvmFlags               = '-Dzookeeper.log.threshold=INFO -Xmx1024m',
 #  Zookeeper configuration parameters
   $dataLogDir             = '/var/log/zookeeper',
-  $pidDir                 = '/var/run/zookeeper',
   $dataDir                = '/var/lib/zookeeper',
   $configDir              = '/etc/zookeeper',
   $clientPortAddress      = '127.0.0.1',
@@ -120,7 +116,6 @@ class zookeeper (
   $electionAlg            = 3,
   $initLimit              = 5,
   $syncLimit              = 5,
-  $pid_file               = 'zookeeper.pid',
   $clientPort             = 2181,
   $leaderPort             = 3888,
   $leaderElectionPort     = 2888,
@@ -154,8 +149,6 @@ class zookeeper (
     $dataDir,
     $jvmFlags,
     $dataLogDir,
-    $pidDir,
-    $pid_file,
     $tmpDir,
     $java_package,
     $service_name,
@@ -169,7 +162,6 @@ class zookeeper (
       $installDir,
       $configDir,
       $dataDir,
-      $pidDir,
       $tmpDir
     ]
   )

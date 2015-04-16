@@ -50,6 +50,11 @@ class zookeeper::install (
       shell      => '/sbin/nologin',
       notify     => [File[$installDir]]
     }
+  }elsif  $manage_user == true and !defined(User[$user]) and $user == 'root' {
+    user { $user:
+      ensure     => present,
+      notify     => [File[$installDir]]
+    }
   }
 
   file { $installDir:

@@ -43,7 +43,7 @@ class zookeeper::install (
     ]
   )
 
-  if $manage_user == true and !defined(User[$user]) {
+  if $manage_user == true and !defined(User[$user]) and $user != 'root' {
     user { $user:
       ensure     => present,
       managehome => true,

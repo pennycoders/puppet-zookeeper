@@ -13,7 +13,7 @@ Environment="JVMFLAGS=<%= @jvmFlags %>"
 Environment="ZOOCFGDIR=<%= @configDir %>"
 User=<%= @user %>
 SyslogIdentifier=<%= @service_name %>
-WorkingDirectory=<%= @installDir %>/zookeeper
+WorkingDirectory=<%= @installDir %>
 ExecStart=<%= @installDir %>/bin/zkServer.sh start-foreground
 UMask=0027
 LimitNOFILE=16384

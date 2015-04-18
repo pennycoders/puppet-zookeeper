@@ -55,12 +55,6 @@ class zookeeper::install (
     }
   }
 
-  file { $installDir:
-    ensure    => directory,
-    purge     => false,
-    recurse   => true
-  }
-
   archive { $url:
     ensure           => present,
     url              => $url,

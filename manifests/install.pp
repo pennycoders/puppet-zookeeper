@@ -3,7 +3,6 @@
 
 class zookeeper::install (
   $url                = $zookeeper::url,
-  $localName          = $zookeeper::localName,
   $follow_redirrects  = $zookeeper::follow_redirects,
   $extension          = $zookeeper::extension,
   $checksum           = $zookeeper::checksum,
@@ -25,7 +24,6 @@ class zookeeper::install (
 # actually strings, halt if any of them is not.
   validate_string(
     $url,
-    $localName,
     $digest_string,
     $digest_type,
     $extension,
@@ -63,27 +61,25 @@ class zookeeper::install (
     recurse   => true
   }
 
-  archive { $localName:
+  archive { $url:
     ensure           => present,
     url              => $url,
     src_target       => $tmpDir,
-    target           => $tmpDir,
+    target           => $installDir,
+    strip_components => 1,
     follow_redirects => $follow_redirects,
     extension        => $extension,
     checksum         => $checksum,
-    subscribe        => [File[$installDir]],
-    notify           => [File["${installDir}/zookeeper"]],
+    notify           => [File[$installDir]],
     digest_string    => $digest_string,
     digest_type      => $digest_type
   }
 
-  file{ "${installDir}/zookeeper":
+  file{ $installDir:
     ensure  => directory,
-    source  => "${tmpDir}/${localName}",
     owner   => $user,
-    purge   => true,
-    force   => true,
     recurse => true,
+    require => [Archive[$url],User[$user]],
     mode    => 'ug=rwxs,o=r'
   }
 }

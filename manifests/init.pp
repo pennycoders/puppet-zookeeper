@@ -86,7 +86,6 @@
 class zookeeper (
   $id                     = 1,
   $url                    = 'http://www.eu.apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz',
-  $localName              = 'zookeeper-3.4.6',
   $digest_string          = '971c379ba65714fd25dc5fe8f14e9ad1',
   $follow_redirects       = true,
   $extension              = 'tar.gz',
@@ -95,7 +94,7 @@ class zookeeper (
   $user                   = 'zookeeper',
   $manage_user            = true,
   $tmpDir                 = '/tmp',
-  $installDir             = '/opt',
+  $installDir             = '/opt/zookeeper',
   $jvmFlags               = '-Dzookeeper.log.threshold=INFO -Xmx1024m',
 #  Zookeeper configuration parameters
   $dataLogDir             = '/var/log/zookeeper',
@@ -138,7 +137,6 @@ class zookeeper (
 # Check if all the string parameters are actually strings, halt if any of them is not.
   validate_string(
     $url,
-    $localName,
     $user,
     $extension,
     $leaderServes,

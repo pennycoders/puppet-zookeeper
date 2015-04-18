@@ -48,7 +48,6 @@ or
   class {'zookeeper':
     id                     => 1,
     url                    => 'http://www.eu.apache.org/dist/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz',
-    localName              => 'zookeeper-3.4.6',
     digest_string          => '971c379ba65714fd25dc5fe8f14e9ad1',
     follow_redirects       => true,
     extension              => 'tar.gz',
@@ -121,8 +120,7 @@ or
     manage_firewall        => $::zookeeper::manage_firewall,
     service_name           => $::zookeeper::service_name,
     tmpDir                 => $::zookeeper::tmpDir,
-    installDir             => $::zookeeper::installDir,
-    localName              => $::zookeeper::localName
+    installDir             => $::zookeeper::installDir
   }
 ```
 

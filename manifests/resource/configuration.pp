@@ -45,7 +45,7 @@ define zookeeper::resource::configuration (
   file{ $configDir:
     ensure  => directory,
     path    => $configDir,
-    source  => "${installDir}/zookeeper/conf",
+    source  => "${installDir}/conf",
     owner   => $user,
     purge   => true,
     force   => true,

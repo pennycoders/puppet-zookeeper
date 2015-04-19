@@ -55,7 +55,7 @@ class zookeeper::install (
     }
   }
 
-  archive { 'zookeeper.tar.gz':
+  archive { 'zookeeper':
     ensure           => present,
     url              => $url,
     src_target       => $tmpDir,
@@ -73,7 +73,7 @@ class zookeeper::install (
     ensure  => directory,
     owner   => $user,
     recurse => true,
-    require => [Archive['zookeeper.tar.gz'],User[$user]],
+    require => [Archive['zookeeper'],User[$user]],
     mode    => 'ug=rwxs,o=r'
   }
 }

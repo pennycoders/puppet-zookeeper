@@ -41,17 +41,21 @@ class zookeeper::install (
     ]
   )
 
-  if $manage_user == true and !defined(User[$user]) and $user != 'root' {
+  if $manage_user == true and !defined(User[$user]) and !defined(Group[$user]) and $user != 'root' {
+    group {$user:
+      ensure => present,
+      name   => $user
+    }
     user { $user:
       ensure     => present,
       managehome => true,
       shell      => '/sbin/nologin',
-      notify     => [File[$installDir]]
+      require    => [Group[$user]],
+      groups     => [$user]
     }
-  }elsif  $manage_user == true and !defined(User[$user]) and $user == 'root' {
+  } elsif  $manage_user == true and !defined(User[$user]) and $user == 'root' {
     user { $user:
-      ensure     => present,
-      notify     => [File[$installDir]]
+      ensure     => present
     }
   }
 

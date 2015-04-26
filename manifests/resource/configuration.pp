@@ -134,7 +134,7 @@ define zookeeper::resource::configuration (
       require     => [Exec["Reload_for_${service_name}"]],
     }
     exec{ "Reload_for_${service_name}":
-      path        => ["${::path}",'/usr/bin'],
+      path        => [$::path],
       command     => 'systemctl daemon-reload',
       notify      => [Service[$service_name]],
       require     => [File["${dataDir}/myid"],File["/usr/lib/systemd/system/${service_name}.service"]]

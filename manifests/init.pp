@@ -199,7 +199,7 @@ class zookeeper (
 # Check if the passed ip address
 # actually exists on the host,
 # fail if it does not.
-  if has_interface_with('ipaddress', $clientPortAddress) == false {
+  if !has_interface_with('ipaddress', $clientPortAddress) {
     fail("The speciffied address (${clientPortAddress}) is not associated with ${::hostname}.")
   }
 

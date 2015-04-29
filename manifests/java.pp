@@ -13,8 +13,7 @@ class zookeeper::java (
   if $install_java == true {
   # Check whether the $java_package is a valid string.
     validate_string($java_package)
-    package { $package_name:
-      ensure  => present
-    }
+
+    ensure_resource('package', $package_name, { ensure => present })
   }
 }

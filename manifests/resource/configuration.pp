@@ -74,27 +74,27 @@ define zookeeper::resource::configuration (
   }
 
   file{ "${configDir}/zoo.cfg":
-    ensure    => file,
-    path      => "${configDir}/zoo.cfg",
-    owner     => $user,
-    mode      => 'ug=rwxs,o=r',
-    purge     => true,
-    force     => true,
-    recurse   => true,
-    require   => [File[$configDir]],
-    content   => template('zookeeper/conf/zoo.cfg.erb'),
+    ensure  => file,
+    path    => "${configDir}/zoo.cfg",
+    owner   => $user,
+    mode    => 'ug=rwxs,o=r',
+    purge   => true,
+    force   => true,
+    recurse => true,
+    require => [File[$configDir]],
+    content => template('zookeeper/conf/zoo.cfg.erb'),
   }
 
   file{ "${dataDir}/myid":
-    ensure    => file,
-    path      => "${dataDir}/myid",
-    owner     => $user,
-    mode      => 'ug+rwxs,o=rw',
-    purge     => true,
-    force     => true,
-    recurse   => true,
-    require   => [File[$dataLogDir],File[$configDir],File[$dataDir]],
-    content   => template('zookeeper/data/myid.erb')
+    ensure  => file,
+    path    => "${dataDir}/myid",
+    owner   => $user,
+    mode    => 'ug+rwxs,o=rw',
+    purge   => true,
+    force   => true,
+    recurse => true,
+    require => [File[$dataLogDir],File[$configDir],File[$dataDir]],
+    content => template('zookeeper/data/myid.erb')
   }
 
   if $manage_firewall == true {
@@ -128,16 +128,16 @@ define zookeeper::resource::configuration (
 
   if $manage_service == true {
     service { $service_name:
-      ensure      => 'running',
-      provider    => 'systemd',
-      enable      => true,
-      require     => [Exec["Reload_for_${service_name}"]],
+      ensure   => 'running',
+      provider => 'systemd',
+      enable   => true,
+      require  => [Exec["Reload_for_${service_name}"]],
     }
     exec{ "Reload_for_${service_name}":
-      path        => [$::path],
-      command     => 'systemctl daemon-reload',
-      notify      => [Service[$service_name]],
-      require     => [File["${dataDir}/myid"],File["/usr/lib/systemd/system/${service_name}.service"]]
+      path    => [$::path],
+      command => 'systemctl daemon-reload',
+      notify  => [Service[$service_name]],
+      require => [File["${dataDir}/myid"],File["/usr/lib/systemd/system/${service_name}.service"]]
     }
     file { "/usr/lib/systemd/system/${service_name}.service":
       ensure  => 'file',

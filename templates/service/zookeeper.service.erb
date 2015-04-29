@@ -11,8 +11,8 @@ ConditionPathExists=<%= @configDir %>/log4j.properties
 [Service]
 Environment="JVMFLAGS=<%= @jvmFlags %>"
 Environment="ZOOCFGDIR=<%= @configDir %>"
-User=<%= @user %>
-Group=<%= @user %>
+User=root
+Group=root
 SyslogIdentifier=<%= @service_name %>
 WorkingDirectory=<%= @installDir %>
 ExecStart=<%= @installDir %>/bin/zkServer.sh start-foreground

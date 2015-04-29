@@ -3,7 +3,7 @@
 
 class zookeeper::install (
   $url                = $zookeeper::url,
-  $follow_redirrects  = $zookeeper::follow_redirects,
+  $follow_redirects  = $zookeeper::follow_redirects,
   $extension          = $zookeeper::extension,
   $checksum           = $zookeeper::checksum,
   $digest_string      = $zookeeper::digest_string,

@@ -91,7 +91,7 @@ class zookeeper (
   $extension              = 'tar.gz',
   $checksum               = true,
   $digest_type            = 'md5',
-  $user                   = 'zookeeper',
+  $user                   = 'root',
   $manage_user            = true,
   $tmpDir                 = '/tmp',
   $installDir             = '/opt/zookeeper',

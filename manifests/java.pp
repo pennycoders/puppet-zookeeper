@@ -8,11 +8,11 @@ class zookeeper::java (
 
 # Checks if the $install_java parameter is a boolean.
 # interrupts catalog compilation if it's not.
-  validate_bool($install_java)
+  validate_bool($install)
 
-  if $install_java == true {
+  if $install == true {
   # Check whether the $java_package is a valid string.
-    validate_string($java_package)
+    validate_string($package_name)
 
     ensure_resource('package', $package_name, { ensure => present })
   }

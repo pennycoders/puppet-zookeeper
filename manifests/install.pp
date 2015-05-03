@@ -41,8 +41,6 @@ class zookeeper::install (
     ]
   )
 
-  require zookeeper
-
   if $manage_user == true and !defined(User[$user]) and !defined(Group[$user]) and $user != 'root' {
     group { $user:
       ensure => present,

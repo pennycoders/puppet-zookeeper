@@ -6,7 +6,6 @@ class zookeeper::java (
   $package_name   = $zookeeper::java_package
 ) inherits zookeeper {
 
-  require zookeeper
 
 # Checks if the $install_java parameter is a boolean.
 # interrupts catalog compilation if it's not.

@@ -53,6 +53,11 @@ define zookeeper::resource::configuration (
       recurse => true,
       mode    => 'ug=rwxs,o=r'
     }
+  } else {
+    file{ $configDir:
+      ensure  => directory,
+      path    => $configDir
+    }
   }
 
   if !defined(File[$dataLogDir]) {

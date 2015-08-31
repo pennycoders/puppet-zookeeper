@@ -17,7 +17,7 @@ class zookeeper::install (
 
 # Check if $manage_user is a valid boolean value
 
-  validate_bool($manage_user, $checksum, $follow_redirects)
+  validate_bool($manage_install, $manage_user, $checksum, $follow_redirects)
 
 
 # Check if all the string parameters are
@@ -59,25 +59,27 @@ class zookeeper::install (
     }
   }
 
-  archive { 'zookeeper':
-    ensure           => present,
-    url              => $url,
-    src_target       => $tmpDir,
-    target           => $installDir,
-    strip_components => 1,
-    follow_redirects => $follow_redirects,
-    extension        => $extension,
-    checksum         => $checksum,
-    notify           => [File[$installDir]],
-    digest_string    => $digest_string,
-    digest_type      => $digest_type
-  }
+  if ($manage_install == true) {
+    archive { 'zookeeper':
+      ensure           => present,
+      url              => $url,
+      src_target       => $tmpDir,
+      target           => $installDir,
+      strip_components => 1,
+      follow_redirects => $follow_redirects,
+      extension        => $extension,
+      checksum         => $checksum,
+      notify           => [File[$installDir]],
+      digest_string    => $digest_string,
+      digest_type      => $digest_type
+    }
 
-  file{ $installDir:
-    ensure  => directory,
-    owner   => $user,
-    recurse => true,
-    require => [Archive['zookeeper'],User[$user]],
-    mode    => 'ug=rwxs,o=r'
+    file{ $installDir:
+      ensure  => directory,
+      owner   => $user,
+      recurse => true,
+      require => [Archive['zookeeper'],User[$user]],
+      mode    => 'ug=rwxs,o=r'
+    }
   }
 }

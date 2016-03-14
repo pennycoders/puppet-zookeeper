@@ -161,7 +161,8 @@ define zookeeper::resource::configuration (
         File[$dataLogDir],
         File[$dataDir],
         File["${configDir}/zoo.cfg"],
-        File["${dataDir}/myid"]
+        File["${dataDir}/myid"],
+        File["${dataDir}/log4j.properties"]
       ],
       content => template('zookeeper/service/zookeeper.service.erb'),
       owner   => $user,

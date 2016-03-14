@@ -94,7 +94,7 @@ define zookeeper::resource::configuration (
     force   => true,
     recurse => true,
     require => [File[$configDir]],
-    content => template('zookeeper/conf/logj4.properties.erb'),
+    content => template('zookeeper/conf/log4j.properties.erb'),
   }
 
   file{ "${dataDir}/myid":

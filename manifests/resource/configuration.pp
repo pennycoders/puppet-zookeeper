@@ -50,7 +50,7 @@ define zookeeper::resource::configuration (
     purge   => true,
     force   => true,
     recurse => true,
-    mode    => 'ug=rwxs,o=r'
+    mode    => '0755'
   }
 
   if !defined(File[$dataLogDir]) {
@@ -60,7 +60,7 @@ define zookeeper::resource::configuration (
       purge   => false,
       force   => true,
       recurse => true,
-      mode    => 'ug=rwxs,o=r'
+      mode    => '0755'
     }
   }
 
@@ -70,14 +70,14 @@ define zookeeper::resource::configuration (
     purge   => false,
     force   => true,
     recurse => true,
-    mode    => 'ug=rwxs,o=r'
+    mode    => '0755'
   }
 
   file{ "${configDir}/zoo.cfg":
     ensure  => file,
     path    => "${configDir}/zoo.cfg",
     owner   => $user,
-    mode    => 'ug=rwxs,o=r',
+    mode    => '0644',
     purge   => true,
     force   => true,
     recurse => true,
@@ -85,11 +85,23 @@ define zookeeper::resource::configuration (
     content => template('zookeeper/conf/zoo.cfg.erb'),
   }
 
+  file{ "${configDir}/log4j.properties":
+    ensure  => file,
+    path    => "${configDir}/log4j.properties",
+    owner   => $user,
+    mode    => '0644',
+    purge   => true,
+    force   => true,
+    recurse => true,
+    require => [File[$configDir]],
+    content => template('zookeeper/conf/logj4.properties.erb'),
+  }
+
   file{ "${dataDir}/myid":
     ensure  => file,
     path    => "${dataDir}/myid",
     owner   => $user,
-    mode    => 'ug+rwxs,o=rw',
+    mode    => '0644',
     purge   => true,
     force   => true,
     recurse => true,
@@ -153,7 +165,7 @@ define zookeeper::resource::configuration (
       ],
       content => template('zookeeper/service/zookeeper.service.erb'),
       owner   => $user,
-      mode    => 'ug=rwxs,o=r'
+      mode    => '0644'
     }
   }
 }

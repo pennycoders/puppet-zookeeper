@@ -78,6 +78,6 @@ class zookeeper::install (
     owner   => $user,
     recurse => true,
     require => [Archive['zookeeper'],User[$user]],
-    mode    => 'ug=rwxs,o=r'
+    mode    => '0755'
   }
 }

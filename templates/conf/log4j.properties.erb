@@ -1,7 +1,7 @@
 # Define some default values that can be overridden by system properties
-zookeeper.root.logger=INFO, CONSOLE
+zookeeper.root.logger=<%= @rootLogger %>
 zookeeper.console.threshold=INFO
-zookeeper.log.dir=<%= @dataLogDir %>
+zookeeper.log.dir=<%= @logDir %>
 zookeeper.log.file=zookeeper.log
 zookeeper.log.threshold=DEBUG
 zookeeper.tracelog.dir=.

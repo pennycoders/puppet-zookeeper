@@ -10,6 +10,8 @@ define zookeeper::resource::configuration (
   $jvmFlags               = $::zookeeper::jvmFlags,
   $purgeInterval          = $::zookeeper::purgeInterval,
   $dataLogDir             = $::zookeeper::dataLogDir,
+  $logDir                 = $::zookeeper::logDir,
+  $rootLogger             = $::zookeeper::rootLogger,
   $dataDir                = $::zookeeper::dataDir,
   $configDir              = $::zookeeper::configDir,
   $clientPortAddress      = $::zookeeper::clientPortAddress,

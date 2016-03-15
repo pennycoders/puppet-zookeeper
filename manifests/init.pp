@@ -55,8 +55,8 @@
 #   The data log directory - see http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_configuration
 #   $dataLogDir
 #
-#
-#
+#   The log directory
+#   $logDir
 #
 #   The directory where zooKeeper will be downloaded
 #   $tmpDir
@@ -69,6 +69,10 @@
 #
 #   The desired name for the service
 #   $service_name
+#
+#   The root logger
+#   $rootLogger
+#
 #
 # Actions:
 #

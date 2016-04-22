@@ -122,6 +122,7 @@ class zookeeper (
   $install_java           = true,
   $java_package           = 'java-1.8.0-openjdk',
   $manage_service         = true,
+  $ensure_service         = 'running'
   $create_aio_service     = true,
   $manage_firewall        = true,
   $service_name           = 'zookeeper'

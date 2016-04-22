@@ -30,6 +30,7 @@ define zookeeper::resource::configuration (
   $leaderPort             = $::zookeeper::leaderPort,
   $leaderElectionPort     = $::zookeeper::leaderElectionPort,
   $manage_service         = $::zookeeper::manage_service,
+  $ensure_service         = $::zookeeper::ensure_service,
   $create_aio_service     = $::zookeeper::create_aio_service,
   $manage_firewall        = $::zookeeper::manage_firewall,
   $service_name           = $::zookeeper::service_name,
@@ -128,7 +129,7 @@ define zookeeper::resource::configuration (
 
   if $manage_service == true {
     service { $service_name:
-      ensure   => 'running',
+      ensure   => $ensure_service,
       provider => 'systemd',
       enable   => true,
       require  => [Exec["Reload_for_${service_name}"]],

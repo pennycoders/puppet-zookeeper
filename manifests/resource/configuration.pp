@@ -123,7 +123,7 @@ define zookeeper::resource::configuration (
       proto       => 'tcp',
       require     => [Class['firewall']],
       destination => $clientPortAddress,
-      action      => 'accept'
+      action      => 'accept',
     }
   }
 

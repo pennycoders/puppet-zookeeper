@@ -2,8 +2,8 @@
     This is a puppet module which can both install and manage Apache Zookeeper.
     It incorporates support for running multiple zookeeper instances on the same machine,
     which comes in handy, mostly when your infrastructure is in it's early days, when there are
-    not many machines. 
- 
+    not many machines.
+
 ## "What's in the box":
     There are three things that this module provides:
      - The zookeeper class, which is the main class that should install the desired zookeeper version.
@@ -11,7 +11,7 @@
        by itself (Inherits parameters from the main class).
      - The zookeeper::configuration resource, which is supposed to be used for configuring a zookeeper instance
        on a given machine.
-       
+
 ## Usage guide:
 In order to be able to use  this module, you first need to add it to your dependencies list.
 ### Usage example:
@@ -41,7 +41,7 @@ or
     zookeeper::resource::configuration{'localhost':}
 ```
 #### Advanced usage:
-    Please note that the usage example you see below contains all the possible parameters, 
+    Please note that the usage example you see below contains all the possible parameters,
     as well as the default value for each parameter.
 ##### zookeeper class:
 ```puppet
@@ -59,8 +59,10 @@ or
     installDir             => '/opt',
     jvmFlags               => '-Dzookeeper.log.threshold=INFO -Xmx1024m',
     dataLogDir             => '/var/log/zookeeper',
-    dataDir                => '/var/lib/zookeeper',
-    configDir              => '/etc/zookeeper',
+    $logDir                 = '/var/log/zookeeper',
+    $dataDir                = '/var/lib/zookeeper',
+    $configDir              = '/etc/zookeeper',
+    $rootLogger             = 'INFO,ROLLINGFILE',
     clientPortAddress      => "127.0.0.1",
     globalOutstandingLimit => 1000,
     maxClientCnxns         => 2000,
@@ -95,8 +97,10 @@ or
     id                     => $::zookeeper::id,
     jvmFlags               => $::zookeeper::jvmFlags,
     purgeInterval          => $::zookeeper::purgeInterval,
-    dataLogDir             => $::zookeeper::dataLogDir,
-    dataDir                => $::zookeeper::dataDir,
+    $dataLogDir             = $::zookeeper::dataLogDir,
+    $logDir                 = $::zookeeper::logDir,
+    $rootLogger             = $::zookeeper::rootLogger,
+    $dataDir                => $::zookeeper::dataDir,
     configDir              => $::zookeeper::configDir,
     clientPortAddress      => $::zookeeper::clientPortAddress,
     globalOutstandingLimit => $::zookeeper::globalOutstandingLimit,
@@ -125,9 +129,8 @@ or
 ```
 
 ## Other notes:
-    This module was built to manage a clustered zookeeper setup. 
+    This module was built to manage a clustered zookeeper setup.
     In case you encounter any issues with it, do not hesitate to signal them on GitHub.
-  
+
 ## OS Support:
     This has only been tested on CentOS 7, for which it was created in the first place.
-    

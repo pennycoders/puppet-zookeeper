@@ -10,6 +10,8 @@ define zookeeper::resource::configuration (
   $jvmFlags               = $::zookeeper::jvmFlags,
   $purgeInterval          = $::zookeeper::purgeInterval,
   $dataLogDir             = $::zookeeper::dataLogDir,
+  $logDir                 = $::zookeeper::logDir,
+  $rootLogger             = $::zookeeper::rootLogger,
   $dataDir                = $::zookeeper::dataDir,
   $configDir              = $::zookeeper::configDir,
   $clientPortAddress      = $::zookeeper::clientPortAddress,
@@ -45,19 +47,19 @@ define zookeeper::resource::configuration (
 
   if ($::zookeeper::manage_install == true) {
     file{ $configDir:
-      ensure  => directory,
-      path    => $configDir,
-      source  => "${installDir}/conf",
-      owner   => $user,
-      purge   => true,
-      force   => true,
-      recurse => true,
-      mode    => 'ug=rwxs,o=r'
-    }
-  } else {
-    file{ $configDir:
-      ensure  => directory,
-      path    => $configDir
+        ensure  => directory,
+        path    => $configDir,
+        source  => "${installDir}/conf",
+        owner   => $user,
+        purge   => true,
+        force   => true,
+        recurse => true,
+        mode    => 'ug=rwxs,o=r'
+      }
+    } else {
+      file{ $configDir:
+        ensure  => directory,
+        path    => $configDir
     }
   }
 
@@ -68,7 +70,7 @@ define zookeeper::resource::configuration (
       purge   => false,
       force   => true,
       recurse => true,
-      mode    => 'ug=rwxs,o=r'
+      mode    => '0755'
     }
   }
 
@@ -78,7 +80,7 @@ define zookeeper::resource::configuration (
     purge   => false,
     force   => true,
     recurse => true,
-    mode    => 'ug=rwxs,o=r'
+    mode    => '0755'
   }
 
   file{ "${configDir}/zoo.cfg":
@@ -91,6 +93,18 @@ define zookeeper::resource::configuration (
     recurse => true,
     require => [File[$configDir]],
     content => template('zookeeper/conf/zoo.cfg.erb'),
+  }
+
+  file{ "${configDir}/log4j.properties":
+    ensure  => file,
+    path    => "${configDir}/log4j.properties",
+    owner   => $user,
+    mode    => '0644',
+    purge   => true,
+    force   => true,
+    recurse => true,
+    require => [File[$configDir]],
+    content => template('zookeeper/conf/log4j.properties.erb'),
   }
 
   file{ "${dataDir}/myid":
@@ -157,11 +171,12 @@ define zookeeper::resource::configuration (
         File[$dataLogDir],
         File[$dataDir],
         File["${configDir}/zoo.cfg"],
-        File["${dataDir}/myid"]
+        File["${dataDir}/myid"],
+        File["${configDir}/log4j.properties"]
       ],
       content => template('zookeeper/service/zookeeper.service.erb'),
       owner   => $user,
-      mode    => 'ug=rwxs,o=r'
+      mode    => '0644'
     }
   }
 }

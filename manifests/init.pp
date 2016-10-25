@@ -124,7 +124,8 @@ class zookeeper (
   $manage_service         = true,
   $create_aio_service     = true,
   $manage_firewall        = true,
-  $service_name           = 'zookeeper'
+  $service_name           = 'zookeeper',
+  $manage_install         = true,
 ) {
 
 

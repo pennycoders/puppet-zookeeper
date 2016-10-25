@@ -42,15 +42,22 @@ define zookeeper::resource::configuration (
 
   validate_re($ensure, '^(present|absent)$',"${ensure} is not supported for ensure. Allowed values are 'present' and 'absent'.")
 
-  file{ $configDir:
-    ensure  => directory,
-    path    => $configDir,
-    source  => "${installDir}/conf",
-    owner   => $user,
-    purge   => true,
-    force   => true,
-    recurse => true,
-    mode    => 'ug=rwxs,o=r'
+  if ($::zookeeper::manage_install == true) {
+    file{ $configDir:
+      ensure  => directory,
+      path    => $configDir,
+      source  => "${installDir}/conf",
+      owner   => $user,
+      purge   => true,
+      force   => true,
+      recurse => true,
+      mode    => 'ug=rwxs,o=r'
+    }
+  } else {
+    file{ $configDir:
+      ensure  => directory,
+      path    => $configDir
+    }
   }
 
   if !defined(File[$dataLogDir]) {

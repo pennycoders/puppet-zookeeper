@@ -55,8 +55,8 @@
 #   The data log directory - see http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_configuration
 #   $dataLogDir
 #
-#
-#
+#   The log directory
+#   $logDir
 #
 #   The directory where zooKeeper will be downloaded
 #   $tmpDir
@@ -69,6 +69,10 @@
 #
 #   The desired name for the service
 #   $service_name
+#
+#   The root logger
+#   $rootLogger
+#
 #
 # Actions:
 #
@@ -98,8 +102,10 @@ class zookeeper (
   $jvmFlags               = '-Dzookeeper.log.threshold=INFO -Xmx1024m',
 #  Zookeeper configuration parameters
   $dataLogDir             = '/var/log/zookeeper',
+  $logDir                 = '/var/log/zookeeper',
   $dataDir                = '/var/lib/zookeeper',
   $configDir              = '/etc/zookeeper',
+  $rootLogger             = 'INFO,ROLLINGFILE',
   $clientPortAddress      = '127.0.0.1',
   $globalOutstandingLimit = 1000,
   $maxClientCnxns         = 2000,
@@ -149,6 +155,8 @@ class zookeeper (
     $dataDir,
     $jvmFlags,
     $dataLogDir,
+    $logDir,
+    $rootLogger,
     $tmpDir,
     $java_package,
     $service_name,
@@ -201,7 +209,7 @@ class zookeeper (
 # Check if the passed ip address
 # actually exists on the host,
 # fail if it does not.
-  if !has_interface_with('ipaddress', $clientPortAddress) {
+  if !has_interface_with('ipaddress', $clientPortAddress) and $clientPortAddress != '0.0.0.0' {
     fail("The speciffied address (${clientPortAddress}) is not associated with ${::hostname}.")
   }
 

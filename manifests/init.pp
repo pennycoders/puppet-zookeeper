@@ -37,6 +37,9 @@
 #   The desired installation directory (Will not be created, it needs to exist)
 #   $installDir
 #
+#   Define root_dir (for archive). Default to '/'
+#   $rootDir
+#
 #   The path to the directory where you wish your configuration to be stored (Please note that this diirectory ill automatically be created if it does not exist)
 #   $configDir - see http://zookeeper.apache.org/doc/r3.3.3/zookeeperAdmin.html#sc_zkMulitServerSetup
 #
@@ -99,6 +102,7 @@ class zookeeper (
   $manage_user            = true,
   $tmpDir                 = '/tmp',
   $installDir             = '/opt/zookeeper',
+  $rootDir                = '/',
   $jvmFlags               = '-Dzookeeper.log.threshold=INFO -Xmx1024m',
 #  Zookeeper configuration parameters
   $dataLogDir             = '/var/log/zookeeper',
@@ -151,6 +155,7 @@ class zookeeper (
     $digest_string,
     $digest_type,
     $installDir,
+    $rootDir,
     $configDir,
     $dataDir,
     $jvmFlags,

@@ -11,7 +11,8 @@ class zookeeper::install (
   $user               = $zookeeper::user,
   $manage_user        = $zookeeper::manage_user,
   $tmpDir             = $zookeeper::tmpDir,
-  $installDir         = $zookeeper::installDir
+  $installDir         = $zookeeper::installDir,
+  $rootDir            = $zookeeper::rootDir
 ) inherits zookeeper {
 
 
@@ -29,6 +30,7 @@ class zookeeper::install (
     $extension,
     $user,
     $installDir,
+    $rootDir,
     $tmpDir
   )
 
@@ -65,6 +67,7 @@ class zookeeper::install (
       url              => $url,
       src_target       => $tmpDir,
       target           => $installDir,
+      root_dir         => $rootDir,
       strip_components => 1,
       follow_redirects => $follow_redirects,
       extension        => $extension,
